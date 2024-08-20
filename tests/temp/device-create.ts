@@ -9,6 +9,15 @@ Deno.test('IoT Hub Device Create', async (t) => {
   await t.step('Add Device', async () => {
     const deviceLookup = crypto.randomUUID();
 
+    const addDevicesResp = await iotRegistry.addDevices([
+      {
+        deviceId: deviceLookup,
+        capabilities: {
+          iotEdge: true,
+        },
+      },
+    ]);
+    
     try {
       await iotRegistry.get(deviceLookup);
     } catch (err) {
@@ -19,14 +28,7 @@ Deno.test('IoT Hub Device Create', async (t) => {
       }
     }
 
-    // const addDevicesResp = await iotRegistry.addDevices([
-    //   {
-    //     deviceId: deviceLookup,
-    //     capabilities: {
-    //       iotEdge: true,
-    //     },
-    //   },
-    // ]);
+
 
     // console.log(addDevicesResp);
   });
